@@ -8,3 +8,7 @@ Advent of Code solutions written in Hoverfly-eso
 * `2.hf` - second part
 * `i` - my input
 * `t` - test case
+
+
+uh, oh, sorry, I had too much stress with exams, so I left.
+Will solve in the holidays.
