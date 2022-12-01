@@ -1,14 +1,14 @@
-# hf-aoc
-Advent of Code solutions written in Hoverfly-eso
+# my-aoc
+Advent of Code solutions written in different languages
 
 # structure
 
 `year`/`day`:
-* `1.hf` - first part
-* `2.hf` - second part
+* `1.*` - first part
+* `2.*` - second part
 * `i` - my input
 * `t` - test case
 
 
-uh, oh, sorry, I had too much stress with exams, so I left.
-Will solve in the holidays.
+
+
