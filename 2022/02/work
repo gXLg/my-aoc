@@ -1,0 +1,22 @@
+#!zsh
+while true
+do
+  nano 01.py
+  python 01.py
+  read n
+  if [[ "$n" == "x" ]]
+  then
+    break
+  fi
+done
+cp 01.py 02.py
+while true
+do
+  nano 02.py
+  python 02.py
+  read n
+  if [[ "$n" == "x" ]]
+  then
+    break
+  fi
+done
