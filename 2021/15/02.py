@@ -1,18 +1,33 @@
 with open("i") as f:
 
-  #from PIL import Image
+  draw = False
+
+  from PIL import Image
   import heapq
 
   zoom = 2
 
   fi = [[*map(int, i)] for i in f.read().strip().split("\n")]
+  lx = len(fi[0])
+  ly = len(fi)
+  fii = [i * 5 for i in fi] * 5
+  fi = []
+  for y, row in enumerate(fii):
+    r = []
+    for x, i in enumerate(row):
+      n = y // ly + x // lx
+      r.append((i + n - 1) % 9 + 1)
+    fi.append(r)
+  #print(*(fi[0][i:i + 10] for i in range(0, len(fi[0]), 10)), sep = "\n")
+
   end = (len(fi[0]) - 1, len(fi) - 1)
   ndd = (len(fi[0]) * zoom, len(fi) * zoom)
 
-  #img = Image.new("RGB", ndd)
-  #img.paste((255, 255, 255), (0, 0, *ndd))
-  #gif = [img]
-  #counter = [0]
+  if draw:
+    img = Image.new("RGB", ndd)
+    img.paste((255, 255, 255), (0, 0, *ndd))
+    gif = [img]
+    counter = [0]
 
   def grad_h(h):
     #return (255, 0, 0)
@@ -51,22 +66,24 @@ with open("i") as f:
       #    #exit()
       g = gs[current]
 
-      #img = gif[-1].copy()
-      #img.paste(grad_g(get_cost(current)), box(current))
-      #counter[0] += 1
-      #if counter[0] == 100:
-      #  gif.append(img)
-      #  counter[0] = 0
-      #else:
-      #  gif[-1] = img
+      if draw:
+        img = gif[-1].copy()
+        img.paste(grad_g(get_cost(current)), box(current))
+        counter[0] += 1
+        if counter[0] == 100:
+          gif.append(img)
+          counter[0] = 0
+        else:
+          gif[-1] = img
 
       if current == end:
-        #prec = current
-        #while prec is not None:
-          #img = gif[-1].copy()
-          #img.paste((200, 200, 120), box(prec))
-          #gif.append(img)
-          #prec = path[prec]
+        if draw:
+          prec = current
+          while prec is not None:
+            img = gif[-1].copy()
+            img.paste((200, 200, 120), box(prec))
+            gif.append(img)
+            prec = path[prec]
 
         return g
 
@@ -74,14 +91,15 @@ with open("i") as f:
       expand(current)
 
   def open_add(node, g, perc):
-    #img = gif[-1].copy()
-    #img.paste(grad_h(get_h(node)), box(node))
-    #counter[0] += 1
-    #if counter[0] == 100:
-    #  gif.append(img)
-    #  counter[0] = 0
-    #else:
-    #  gif[-1] = img
+    if draw:
+      img = gif[-1].copy()
+      img.paste(grad_h(get_h(node)), box(node))
+      counter[0] += 1
+      if counter[0] == 100:
+        gif.append(img)
+        counter[0] = 0
+      else:
+        gif[-1] = img
 
     f = g + get_h(node)
     #i = -1
@@ -133,8 +151,9 @@ with open("i") as f:
 
   print(astar())
 
-  #gif[0].save(
-  #  "./vis.gif", save_all = True,
-  #  append_images = gif[1:],
-  #  optimize = False, duration = 1
-  #)
+  if draw:
+    gif[0].save(
+      "./vis.gif", save_all = True,
+      append_images = gif[1:],
+      optimize = False, duration = 1
+    )
