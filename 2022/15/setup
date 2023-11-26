@@ -1,0 +1,4 @@
+echo "paste for test case"
+cat > t
+echo "now paste your input"
+cat > i
