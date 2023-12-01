@@ -1,24 +1,16 @@
 with open("i") as f:
   t = f.read().strip().split("\n")
 
+import re
+
 b = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
-d = [*"123456789"]
+d = "(?:" + ")|(?:".join(b) + ")"
 s = 0
 for i in t:
-  a = []
-  for j in range(len(i)):
-    for k in b + d:
-      if i[j:j + len(k)] == k:
-        a.append(k)
+  a = [*map("".join, re.findall(f"(?=(\\d|{d}))", i))]
 
-  f = a[0]
-  l = a[-1]
-
-  if f in b:
-    f = str(b.index(f) + 1)
-
-  if l in b:
-    l = str(b.index(l) + 1)
+  f = str(b.index(a[0]) + 1) if a[0] in b else a[0]
+  l = str(b.index(a[-1]) + 1) if a[-1] in b else a[-1]
 
   s += int(f + l)
 
