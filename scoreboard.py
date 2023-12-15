@@ -41,8 +41,8 @@ for day in range(1, days + 1):
 for id in data:
   #ddd = range(1, days * 2 + 1)
   ddd = range(days * 2 - 10, days * 2 + 1)
-  ddt = [data[id][i] - data[id][i - 1] for i in ddd]
-  #ddt = [data[id][i] for i in ddd]
+  #ddt = [data[id][i] - data[id][i - 1] for i in ddd]
+  ddt = [data[id][i] for i in ddd]
 
   plt.plot(ddd, ddt, label = id)
 
