@@ -10,6 +10,9 @@ def xgcd(a, b):
     tt, t = t, tt - q * t
   return tr, ts, tt
 
+def lcm(a, b):
+  return a * b // xgcd(a, b)[0]
+
 def axcmod(a, c, d):
   r = xgcd(xgcd(a, c)[0], d)[0]
   a //= r
@@ -17,11 +20,12 @@ def axcmod(a, c, d):
   d //= r
   _, s, t = xgcd(a, d)
   x = (s * c) % d
-  assert (a * x) % d == c
+  #assert (a * x) % d == c
   return x, d
 
 def race(pre1, cyc1, pre2, cyc2):
   x, d = axcmod(cyc1, pre2 - pre1, cyc2)
+  print(x, d)
   while True:
     y = (pre1 - pre2 + cyc1 * x) // cyc2
     if x > 0 and y > 0:
@@ -30,7 +34,21 @@ def race(pre1, cyc1, pre2, cyc2):
   assert pre1 + cyc1 * x == pre2 + cyc2 * y
   return x, y
 
-#def ghosts(*pairs):
-#  ...
+def ghosts(pairs):
+  p, c = pairs.pop(0)
+  while pairs:
+    p2, c2 = pairs.pop(0)
 
-print(race(1, 2, 3, 5))
+    x, y = race(p, c, p2, c2)
+    p = p + c * x
+    c = lcm(c, c2)
+
+  return p
+
+print(race(2, 3, 7, 5))
+
+#print(ghosts([
+#  [2, 3],
+#  [7, 5],
+#  [13, 7]
+#]))

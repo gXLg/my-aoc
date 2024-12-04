@@ -111,7 +111,3 @@ for y, line in enumerate(loop[(1000000000 - fi) % (rr - fi) + (fi - 1)]):
   su += line.count(2) * (len(t) - y)
 
 print(su)
-
-#  sum = 0
-#print(int(sum))
-#  sum += len(t) - stone.imag

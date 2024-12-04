@@ -1,0 +1,6 @@
+year=$(basename $(dirname "$PWD"))
+day=$(basename "$PWD")
+day=${day#0}
+curl -s "https://adventofcode.com/$year/day/$day/input" -b "$(cat ~/.nerd/aoc_cookie)" > i
+
+nano t
